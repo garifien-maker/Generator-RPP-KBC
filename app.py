@@ -231,7 +231,7 @@ elif menu == "➕ Buat RPP Baru":
                         st.download_button("📥 Download Document", html_final, file_name=f"RPP_{materi}.doc")
                     
                     # --- MENU 3: RIWAYAT ---
-                    elif menu == "📜 Riwayat RPP":
+                    if menu == "📜 Riwayat RPP":
                         st.subheader("📜 Riwayat Dokumen")
                         if not st.session_state.db_rpp: st.info("Belum ada dokumen yang dibuat.")
                         for i, item in enumerate(reversed(st.session_state.db_rpp)):
