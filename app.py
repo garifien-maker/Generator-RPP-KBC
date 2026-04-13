@@ -229,8 +229,8 @@ if menu == "➕ Buat RPP Baru":
                         )
                     
                         st.download_button("📥 Download Document", html_final, file_name=f"RPP_{materi}.doc")
-                         except Exception as e:
-                            st.error(f"Eror: {e}")
+                except Exception as e:
+                    st.error(f"Eror: {e}")
                     
                     # --- MENU 3: RIWAYAT ---
                     if menu == "...":
