@@ -4,6 +4,13 @@ import google.generativeai as genai
 from datetime import date
 import re
 import os
+import time
+
+if "last_request_time" not in st.session_state:
+    st.session_state.last_request_time = 0
+
+if "is_generating" not in st.session_state:
+    st.session_state.is_generating = False
 
 # --- KONFIGURASI HALAMAN & SECURITY ---
 st.set_page_config(page_title="APLIKASI RPP KBC - KKG Kecamatan Panjalu", layout="wide", page_icon="🏫")
@@ -140,6 +147,12 @@ if menu == "➕ Buat RPP Baru":
     
         submitted = st.form_submit_button("🚀 GENERATE RPP SESUAI REFERENSI")
     if submitted:
+        # ⛔ ANTI DOUBLE KLIK
+        if st.session_state.is_generating:
+            st.warning("⏳ Sedang diproses, tunggu dulu...")
+            st.stop()
+
+        st.session_state.is_generating = True
         if not materi or not target_belajar:
             st.warning("Mohon lengkapi Materi dan Tujuan Pembelajaran.")
         else:
@@ -229,14 +242,20 @@ if menu == "➕ Buat RPP Baru":
                         )
                     
                         st.download_button("📥 Download Document", html_final, file_name=f"RPP_{materi}.doc")
-                except Exception as e:
-                    st.error(f"Eror: {e}")
+
+                        # ✅ WAJIB: reset setelah sukses
+                        st.session_state.is_generating = False
+                        
+                        except Exception as e:
+                            # ✅ WAJIB: reset kalau error
+                            st.session_state.is_generating = False
+                            st.error(f"Eror: {e}")
                     
-                    # --- MENU 3: RIWAYAT ---
-                    if menu == "...":
-                        st.subheader("📜 Riwayat Dokumen")
-                        if not st.session_state.db_rpp: st.info("Belum ada dokumen yang dibuat.")
-                        for i, item in enumerate(reversed(st.session_state.db_rpp)):
-                            with st.expander(f"📄 {item['tgl']} - {item['materi']}"):
-                                components.html(f"<div style='background:white; color:black; padding:20px; font-family:serif;'>{item['file']}</div>", height=500, scrolling=True)
-                                st.download_button("Unduh Ulang", item['file'], file_name="RPP_Re.doc", key=f"re_{i}")
+# --- MENU 3: RIWAYAT ---
+if menu == "...":
+    st.subheader("📜 Riwayat Dokumen")
+    if not st.session_state.db_rpp: st.info("Belum ada dokumen yang dibuat.")
+    for i, item in enumerate(reversed(st.session_state.db_rpp)):
+        with st.expander(f"📄 {item['tgl']} - {item['materi']}"):
+        components.html(f"<div style='background:white; color:black; padding:20px; font-family:serif;'>{item['file']}</div>", height=500, scrolling=True)
+        st.download_button("Unduh Ulang", item['file'], file_name="RPP_Re.doc", key=f"re_{i}")
