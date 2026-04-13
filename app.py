@@ -242,11 +242,13 @@ if menu == "➕ Buat RPP Baru":
                             scrolling=True
                         )
                     
-                        st.download_button("📥 Download Document", html_final, file_name=f"RPP_{materi}.doc")
+                        st.download_button(
+                            "📥 Download Document", 
+                            html_final, 
+                            file_name=f"RPP_{materi}.doc")
 
                         # ✅ WAJIB: reset setelah sukses
                         st.session_state.is_generating = False
-                        
                     except Exception as e:
                         # ✅ WAJIB: reset kalau error
                         st.session_state.is_generating = False
