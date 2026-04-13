@@ -96,7 +96,7 @@ if menu == "⚙️ Pengaturan":
         st.success("Data berhasil disimpan!")
 
 # --- MENU 2: BUAT RPP BARU ---
-elif menu == "➕ Buat RPP Baru":
+if menu == "➕ Buat RPP Baru":
     st.subheader("➕ Rancang RPP KBC Presisi")
     
     with st.form("form_rpp_presisi"):  
@@ -238,5 +238,3 @@ elif menu == "➕ Buat RPP Baru":
                             with st.expander(f"📄 {item['tgl']} - {item['materi']}"):
                                 components.html(f"<div style='background:white; color:black; padding:20px; font-family:serif;'>{item['file']}</div>", height=500, scrolling=True)
                                 st.download_button("Unduh Ulang", item['file'], file_name="RPP_Re.doc", key=f"re_{i}")
-
-
