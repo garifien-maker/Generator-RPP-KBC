@@ -207,16 +207,28 @@ elif menu == "➕ Buat RPP Baru":
 
                     8. LAMPIRAN: Rubrik Penilaian (holistik dan analitik), LKPD (Lengkap sesuai mata pelajaran, materi pokok), Instrumen Asesmen (5 Soal PG lengkap dengan Kisi-kisi & Kunci Jawaban, berikan narasi ruh KBC pada naskah soal).
 
-                    HANYA BERIKAN KODE HTML.
-                    """
-                    raw_response = model_ai.generate_content(prompt).text
-                    html_final = re.sub(r'```html|```', '', raw_response).strip()
-                    st.session_state.db_rpp.append({"tgl": tgl_rpp, "materi": materi, "file": html_final})
-                    st.success("Selesai!")
-                    components.html(f"<div style='background:white; color:black; padding:30px; border:1px solid #ccc;'>{html_final}</div>", height=800, scrolling=True)
-                    st.download_button("📥 Download Document", html_final, file_name=f"RPP_{materi}.doc")
-                except Exception as e:
-                    st.error(f"Eror: {e}")
+                    model_ai = get_model()
+
+if model_ai is None:
+    st.error("Model AI tidak tersedia. Cek API KEY.")
+else:
+    raw_response = model_ai.generate_content(prompt).text
+    html_final = re.sub(r'```html|```', '', raw_response).strip()
+
+    st.session_state.db_rpp.append({
+        "tgl": tgl_rpp,
+        "materi": materi,
+        "file": html_final
+    })
+
+    st.success("Selesai!")
+    components.html(
+        f"<div style='background:white; color:black; padding:30px; border:1px solid #ccc;'>{html_final}</div>",
+        height=800,
+        scrolling=True
+    )
+
+    st.download_button("📥 Download Document", html_final, file_name=f"RPP_{materi}.doc")
 
 # --- MENU 3: RIWAYAT ---
 elif menu == "📜 Riwayat RPP":
