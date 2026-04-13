@@ -221,11 +221,11 @@ if menu == "➕ Buat RPP Baru":
                      8. LAMPIRAN: Rubrik Penilaian (holistik dan analitik), LKPD (Lengkap sesuai mata pelajaran, materi pokok), Instrumen Asesmen (5 Soal PG lengkap dengan Kisi-kisi & Kunci Jawaban, berikan narasi ruh KBC pada naskah soal).
                      """
                      model_ai = get_model()
-
+                     
                      if model_ai is None:
-                        st.error("Model AI tidak tersedia. Cek API KEY.")
-                        st.session_state.is_generating = False
-                     else:
+                         st.error("Model AI tidak tersedia. Cek API KEY.")
+                         st.session_state.is_generating = False
+                    else:
                         raw_response = model_ai.generate_content(prompt).text
                         html_final = re.sub(r'```html|```', '', raw_response).strip()
                     
