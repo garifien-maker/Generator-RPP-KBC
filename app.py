@@ -214,17 +214,18 @@ if menu == "➕ Buat RPP Baru":
                          <b>Penguatan Nilai KBC (Panca Cinta):</b> [Narasi penguatan {', '.join(topik_sel)}]
                        </div>
 
-                    6. E. ASESMEN (Awal, Proses, Akhir)
+                     6. E. ASESMEN (Awal, Proses, Akhir)
 
-                    7. PENGESAHAN: Tabel tanda tangan di Ciamis, {tgl_rpp.strftime('%d %B %Y')}.
+                     7. PENGESAHAN: Tabel tanda tangan di Ciamis, {tgl_rpp.strftime('%d %B %Y')}.
 
-                    8. LAMPIRAN: Rubrik Penilaian (holistik dan analitik), LKPD (Lengkap sesuai mata pelajaran, materi pokok), Instrumen Asesmen (5 Soal PG lengkap dengan Kisi-kisi & Kunci Jawaban, berikan narasi ruh KBC pada naskah soal).
-                    """
-                    model_ai = get_model()
+                     8. LAMPIRAN: Rubrik Penilaian (holistik dan analitik), LKPD (Lengkap sesuai mata pelajaran, materi pokok), Instrumen Asesmen (5 Soal PG lengkap dengan Kisi-kisi & Kunci Jawaban, berikan narasi ruh KBC pada naskah soal).
+                     """
+                     model_ai = get_model()
 
-                    if model_ai is None:
+                     if model_ai is None:
                         st.error("Model AI tidak tersedia. Cek API KEY.")
-                    else:
+                        st.session_state.is_generating = False
+                     else:
                         raw_response = model_ai.generate_content(prompt).text
                         html_final = re.sub(r'```html|```', '', raw_response).strip()
                     
@@ -246,10 +247,10 @@ if menu == "➕ Buat RPP Baru":
                         # ✅ WAJIB: reset setelah sukses
                         st.session_state.is_generating = False
                         
-    except Exception as e:
-        # ✅ WAJIB: reset kalau error
-        st.session_state.is_generating = False
-        st.error(f"Eror: {e}")
+                    except Exception as e:
+                        # ✅ WAJIB: reset kalau error
+                        st.session_state.is_generating = False
+                        st.error(f"Eror: {e}")
                     
 # --- MENU 3: RIWAYAT ---
 if menu == "...":
