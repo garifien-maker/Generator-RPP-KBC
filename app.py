@@ -27,17 +27,25 @@ st.markdown("""
 # --- ENGINE AI (LOGIKA MODEL OTOMATIS) ---
 @st.cache_resource
 def get_model():
-    if "GOOGLE_API_KEY" not in st.secrets: return None
+    api_key = os.getenv("GOOGLE_API_KEY")
+    
+    if not api_key:
+        st.error("API Key tidak ditemukan. Pastikan GOOGLE_API_KEY sudah diset di Railway.")
+        return None
+
     try:
-        genai.configure(api_key=st.secrets["GOOGLE_API_KEY"])
+        genai.configure(api_key=api_key)
+
         for m in genai.list_models():
             if 'generateContent' in m.supported_generation_methods:
                 return genai.GenerativeModel(m.name)
+
+        st.error("Model Gemini tidak ditemukan.")
         return None
-    except: return None
 
-model_ai = get_model()
-
+    except Exception as e:
+        st.error(f"Error inisialisasi model: {e}")
+        return None
 
 # --- DATABASE SEMENTARA ---
 if 'db_rpp' not in st.session_state: st.session_state.db_rpp = []
