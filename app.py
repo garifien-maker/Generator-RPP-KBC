@@ -52,8 +52,8 @@ if 'config' not in st.session_state:
     # FITUR 4: Tampilan disamarkan (placeholder) dengan nilai awal kosong
     st.session_state.config = {
         "madrasah": "", "guru": "", "nip_guru": "",
-        "kepala": "Iim Siti Halimah, S.Ag., M.Pd.",
-        "nip_kepala": "197206051997032003", "thn_ajar": ""
+        "kepala": "nama_kepala",
+        "nip_kepala": "nip_kepala", "thn_ajar": ""
     }
 
 # --- SIDEBAR MENU ---
