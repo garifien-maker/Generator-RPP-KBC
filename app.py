@@ -6,7 +6,7 @@ import re
 import os
 
 # --- KONFIGURASI HALAMAN & SECURITY ---
-st.set_page_config(page_title="E-Perangkat KBC Presisi - MIN 1 CIAMIS", layout="wide", page_icon="🏫")
+st.set_page_config(page_title="APLIKASI RPP KBC - KKG Kecamatan Panjalu", layout="wide", page_icon="🏫")
 
 # --- CSS TAMPILAN (Sudah Diperbaiki & Struktur Tetap Aman) ---
 st.markdown("""
@@ -65,16 +65,16 @@ with st.sidebar:
 
     st.markdown("""
     <div style='text-align: center; border-bottom: 1px solid #ffffff33; margin-bottom: 20px; padding-bottom: 10px;'>
-        <h2 style='color: white; margin-top:0px; font-size: 1.5em;'>Generate RPP KBC</h2>
+        <h2 style='color: white; margin-top:0px; font-size: 1.5em;'>GENERAT RPP KBC</h2>
         <p style='font-size:0.85em; font-style:italic; color:#c8e6c9;'>
-        "KKG KECAMATAN PANJALU - Copyright: Agus Arifien."
+        "KKG KECAMATAN PANJALU KABUPATEN CIAMIS"
         </p>
     </div>
     """, unsafe_allow_html=True)
     
     menu = st.radio("Menu Utama", ["➕ Buat RPP Baru", "📜 Riwayat RPP", "⚙️ Pengaturan"])
     st.divider()
-    st.caption("v13.22 - Full Version Enhanced")
+    st.caption("Copyright: Agus Arifien-@2026")
 
 # --- MENU 1: PENGATURAN (FITUR 4: PLACEHOLDER SAMAR) ---
 if menu == "⚙️ Pengaturan":
