@@ -246,10 +246,10 @@ if menu == "➕ Buat RPP Baru":
                         # ✅ WAJIB: reset setelah sukses
                         st.session_state.is_generating = False
                         
-                    except Exception as e:
-                        # ✅ WAJIB: reset kalau error
-                        st.session_state.is_generating = False
-                        st.error(f"Eror: {e}")
+            except Exception as e:
+                # ✅ WAJIB: reset kalau error
+                st.session_state.is_generating = False
+                st.error(f"Eror: {e}")
                     
 # --- MENU 3: RIWAYAT ---
 if menu == "...":
