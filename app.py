@@ -44,6 +44,7 @@ def get_model():
 
     except:
         return None
+model_ai = get_model()
 
 # --- DATABASE SEMENTARA ---
 if 'db_rpp' not in st.session_state: st.session_state.db_rpp = []
