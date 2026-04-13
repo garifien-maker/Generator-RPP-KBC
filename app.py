@@ -3,6 +3,7 @@ import streamlit.components.v1 as components
 import google.generativeai as genai
 from datetime import date
 import re
+import os
 
 # --- KONFIGURASI HALAMAN & SECURITY ---
 st.set_page_config(page_title="E-Perangkat KBC Presisi - MIN 1 CIAMIS", layout="wide", page_icon="🏫")
